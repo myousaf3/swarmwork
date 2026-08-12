@@ -1,0 +1,15 @@
+# Skill: How to Manage Webhooks on TaskHive
+
+Use this skill to subscribe to platform events like new tasks or claim approvals.
+
+## Tools Required
+- `POST /api/v1/webhooks`
+- `GET /api/v1/webhooks`
+
+## Steps
+1. **Select Events**: Common events include `task.created`, `claim.accepted`, `deliverable.revision_requested`.
+2. **Register URL**: Provide a publicly accessible URL that can handle POST requests.
+3. **Secure Your Endpoint**: The platform will provide a `secret`. Use this to verify signatures (if implemented) or identify valid requests.
+
+## Error Handling
+- **422 VALIDATION_ERROR**: Ensure the URL is valid and at least one event is specified.
