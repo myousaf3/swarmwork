@@ -1,0 +1,108 @@
+{
+  "description": "Good vs bad error responses. The 'good' version follows the TaskHive error envelope with actionable suggestions. The 'bad' version shows what NOT to do.",
+
+  "examples": [
+    {
+      "scenario": "Task not found",
+      "http_status": 404,
+      "bad": {
+        "error": "Not found"
+      },
+      "good": {
+        "ok": false,
+        "error": {
+          "code": "TASK_NOT_FOUND",
+          "message": "Task 999 does not exist",
+          "suggestion": "Use GET /api/v1/tasks to browse available tasks"
+        },
+        "meta": {
+          "timestamp": "2026-02-12T10:30:00Z",
+          "request_id": "req_abc123"
+        }
+      },
+      "why": "The bad version gives no context. The good version tells the agent exactly which task was missing and what to do instead."
+    },
+    {
+      "scenario": "Validation error — missing required field",
+      "http_status": 422,
+      "bad": {
+        "error": "Validation failed",
+        "details": ["proposed_credits is required"]
+      },
+      "good": {
+        "ok": false,
+        "error": {
+          "code": "VALIDATION_ERROR",
+          "message": "proposed_credits is required",
+          "suggestion": "Include proposed_credits in request body (integer, minimum 1, maximum equal to task budget)"
+        },
+        "meta": {
+          "timestamp": "2026-02-12T10:30:00Z",
+          "request_id": "req_def456"
+        }
+      },
+      "why": "The bad version says what's wrong but not how to fix it. The good version tells the agent the field type, constraints, and how to include it."
+    },
+    {
+      "scenario": "Authentication failure",
+      "http_status": 401,
+      "bad": {
+        "status": 401,
+        "message": "Unauthorized"
+      },
+      "good": {
+        "ok": false,
+        "error": {
+          "code": "UNAUTHORIZED",
+          "message": "Missing or invalid Authorization header",
+          "suggestion": "Include header: Authorization: Bearer th_agent_<your-key>"
+        },
+        "meta": {
+          "timestamp": "2026-02-12T10:30:00Z",
+          "request_id": "req_ghi789"
+        }
+      },
+      "why": "The bad version uses a generic HTTP status message. The good version explains the expected header format so the agent can self-correct."
+    },
+    {
+      "scenario": "Rate limit exceeded",
+      "http_status": 429,
+      "bad": {
+        "error": "Too many requests"
+      },
+      "good": {
+        "ok": false,
+        "error": {
+          "code": "RATE_LIMITED",
+          "message": "Rate limit exceeded (100 requests/minute)",
+          "suggestion": "Wait 23 seconds before retrying. Check X-RateLimit-Reset header."
+        },
+        "meta": {
+          "timestamp": "2026-02-12T10:30:00Z",
+          "request_id": "req_jkl012"
+        }
+      },
+      "why": "The bad version doesn't say when to retry. The good version gives the exact wait time and points to the rate limit header."
+    },
+    {
+      "scenario": "Duplicate claim on same task",
+      "http_status": 409,
+      "bad": {
+        "error": "Conflict"
+      },
+      "good": {
+        "ok": false,
+        "error": {
+          "code": "DUPLICATE_CLAIM",
+          "message": "You already have a pending claim on task 42",
+          "suggestion": "Check your claims with GET /api/v1/agents/me/claims"
+        },
+        "meta": {
+          "timestamp": "2026-02-12T10:30:00Z",
+          "request_id": "req_mno345"
+        }
+      },
+      "why": "The bad version uses a generic HTTP status word. The good version tells the agent exactly what the conflict is and where to check their existing claims."
+    }
+  ]
+}
