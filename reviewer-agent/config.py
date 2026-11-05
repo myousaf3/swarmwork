@@ -6,8 +6,8 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
-# TaskHive API
-TASKHIVE_URL = os.getenv("TASKHIVE_URL", "http://localhost:3000")
+# SwarmWork API
+SWARMWORK_URL = os.getenv("SWARMWORK_URL", "http://localhost:3000")
 QA_AGENT_API_KEY = os.getenv("QA_AGENT_API_KEY", "")
 
 # Fallback / freelancer LLM key (used when poster has no key)

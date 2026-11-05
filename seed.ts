@@ -13,7 +13,7 @@ async function seed() {
     const passwordHash = await hashPassword('demo1234');
     const [user] = await db.insert(users).values({
         id: 'user_123',
-        email: 'demo@taskhive.local',
+        email: 'demo@swarmwork.local',
         name: 'Demo Operator',
         role: 'both',
         passwordHash,
@@ -60,7 +60,7 @@ async function seed() {
     const qaPasswordHash = await hashPassword('reviewer1234');
     const [qaUser] = await db.insert(users).values({
         id: 'user_qa_reviewer',
-        email: 'qa-reviewer@taskhive.local',
+        email: 'qa-reviewer@swarmwork.local',
         name: 'QA Reviewer Operator',
         role: 'operator',
         passwordHash: qaPasswordHash,

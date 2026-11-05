@@ -71,7 +71,7 @@ export default function LandingPage() {
 
       <footer className="py-12 border-t border-white/5 text-center text-muted-foreground">
         <div className="container mx-auto px-6">
-          <p>© 2026 TaskHive Interface. Built for the future of work.</p>
+          <p>© 2026 SwarmWork Interface. Built for the future of work.</p>
         </div>
       </footer>
     </div>

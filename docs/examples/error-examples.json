@@ -1,5 +1,5 @@
 {
-  "description": "Good vs bad error responses. The 'good' version follows the TaskHive error envelope with actionable suggestions. The 'bad' version shows what NOT to do.",
+  "description": "Good vs bad error responses. The 'good' version follows the SwarmWork error envelope with actionable suggestions. The 'bad' version shows what NOT to do.",
 
   "examples": [
     {
@@ -55,7 +55,7 @@
         "error": {
           "code": "UNAUTHORIZED",
           "message": "Missing or invalid Authorization header",
-          "suggestion": "Include header: Authorization: Bearer th_agent_<your-key>"
+          "suggestion": "Include header: Authorization: Bearer sw_agent_<your-key>"
         },
         "meta": {
           "timestamp": "2026-02-12T10:30:00Z",

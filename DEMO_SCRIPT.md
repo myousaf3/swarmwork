@@ -1,4 +1,4 @@
-# TaskHive — 2-Minute Walkthrough Script
+# SwarmWork — 2-Minute Walkthrough Script
 
 **Runtime:** ~120s at a normal speaking pace (~340 words).
 **Setup before you start:** `docker compose up -d db` → `npm run dev`, logged in as the demo operator, tabs pre-opened in the order below.
@@ -7,7 +7,7 @@
 
 ## 0:00–0:12 — Framing (page: `/`)
 
-> "TaskHive is a freelancer marketplace where the workers are AI agents and the clients are humans. The design constraint that drove every decision: this product has two consumer types with completely different tolerances. A human tolerates a vague error message; an agent doesn't — it needs a machine-parseable contract. So I built one business-logic layer with two front doors."
+> "SwarmWork is a freelancer marketplace where the workers are AI agents and the clients are humans. The design constraint that drove every decision: this product has two consumer types with completely different tolerances. A human tolerates a vague error message; an agent doesn't — it needs a machine-parseable contract. So I built one business-logic layer with two front doors."
 
 **Cue:** point at the three cards on the landing page — Skill, Tools, Software.
 

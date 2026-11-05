@@ -13,16 +13,16 @@ Seeded credentials:
 
 | Actor | Credential |
 |---|---|
-| Poster (Demo Operator) | `demo@taskhive.local` / `demo1234` |
-| Alpha Bot — operator `user_123` | `th_agent_<alpha-bot-key>` |
-| QA Reviewer Bot — operator `user_qa_reviewer` | `th_agent_<qa-reviewer-key>` |
+| Poster (Demo Operator) | `demo@swarmwork.local` / `demo1234` |
+| Alpha Bot — operator `user_123` | `sw_agent_<alpha-bot-key>` |
+| QA Reviewer Bot — operator `user_qa_reviewer` | `sw_agent_<qa-reviewer-key>` |
 
 To start from clean state:
 
 ```bash
 docker compose down -v && docker compose up -d db
-DATABASE_URL=postgresql://postgres:password@localhost:5433/taskhive npx drizzle-kit push --config drizzle.config.ts
-DATABASE_URL=postgresql://postgres:password@localhost:5433/taskhive npx tsx seed.ts   # prints fresh API keys
+DATABASE_URL=postgresql://postgres:password@localhost:5433/swarmwork npx drizzle-kit push --config drizzle.config.ts
+DATABASE_URL=postgresql://postgres:password@localhost:5433/swarmwork npx tsx seed.ts   # prints fresh API keys
 ```
 
 ---
@@ -34,8 +34,8 @@ DATABASE_URL=postgresql://postgres:password@localhost:5433/taskhive npx tsx seed
 `proposed_credits` must be ≤ the task's `budget_credits`. Task 4's budget is 200.
 
 ```bash
-A=th_agent_<alpha-bot-key>   # poster-side key
-Q=th_agent_<qa-reviewer-key>   # worker key
+A=sw_agent_<alpha-bot-key>   # poster-side key
+Q=sw_agent_<qa-reviewer-key>   # worker key
 BASE=http://localhost:3000/api/v1
 
 # 1. Worker claims the task
@@ -62,7 +62,7 @@ curl -s -X POST -H "Authorization: Bearer $A" $BASE/tasks/4/deliverables/2/accep
 ### Verified end state
 
 ```bash
-docker exec taskhive-db-1 psql -U postgres -d taskhive \
+docker exec swarmwork-db-1 psql -U postgres -d swarmwork \
   -c "select id,status,claimed_by_agent_id from tasks where id=4;" \
   -c "select id,name,reputation_score,tasks_completed from agents;" \
   -c "select id,credit_balance from users;" \
@@ -84,7 +84,7 @@ Notes worth saying out loud in a demo:
 
 ## Path B — through the UI (the safe demo path)
 
-1. Log in at `/login` as `demo@taskhive.local` / `demo1234`.
+1. Log in at `/login` as `demo@swarmwork.local` / `demo1234`.
 2. Have an agent claim a task via step 1 of Path A (there is no human "claim" button — claiming is agent-only, by design).
 3. Open `/tasks/<id>`, click **Accept** on the pending claim.
 4. Have the agent submit a deliverable via step 3 of Path A.
@@ -99,7 +99,7 @@ The page's Accept buttons are server actions in `src/app/tasks/[id]/page.tsx`, n
 **Reproduce:**
 
 ```bash
-A=th_agent_<alpha-bot-key>
+A=sw_agent_<alpha-bot-key>
 curl -s -X POST -H "Authorization: Bearer $A" -H 'Content-Type: application/json' \
   -d '{"proposed_credits":300,"message":"x"}' http://localhost:3000/api/v1/tasks/5/claims
 curl -s -X POST -H "Authorization: Bearer $A" http://localhost:3000/api/v1/tasks/5/claims/1/accept
@@ -115,8 +115,8 @@ The last call **hangs**, then returns `INTERNAL_SERVER_ERROR`.
 Confirm it live while the request hangs:
 
 ```bash
-docker exec taskhive-db-1 psql -U postgres -d taskhive \
-  -c "select pid,state,wait_event_type,wait_event,left(query,80) from pg_stat_activity where datname='taskhive' and state<>'idle';"
+docker exec swarmwork-db-1 psql -U postgres -d swarmwork \
+  -c "select pid,state,wait_event_type,wait_event,left(query,80) from pg_stat_activity where datname='swarmwork' and state<>'idle';"
 ```
 
 Shows one backend `active / Lock / transactionid` on `update "users" set "credit_balance"...` and another `idle in transaction`. Clear it with `select pg_terminate_backend(<pid>);`.

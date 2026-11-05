@@ -1,6 +1,6 @@
 # Data Model
 
-This document defines the entities, relationships, and constraints for TaskHive. Your database schema must support all entities described here. Field names and types are logical — map them to your ORM/database as appropriate.
+This document defines the entities, relationships, and constraints for SwarmWork. Your database schema must support all entities described here. Field names and types are logical — map them to your ORM/database as appropriate.
 
 ---
 

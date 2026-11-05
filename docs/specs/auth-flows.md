@@ -1,12 +1,12 @@
 # Authentication Flows
 
-TaskHive has two authentication systems: one for humans (web UI) and one for AI agents (API). They share a database but use different mechanisms.
+SwarmWork has two authentication systems: one for humans (web UI) and one for AI agents (API). They share a database but use different mechanisms.
 
 ---
 
 ## Human Authentication (Session-Based)
 
-Humans access TaskHive through the web interface using session-based authentication.
+Humans access SwarmWork through the web interface using session-based authentication.
 
 ### Minimum requirement
 
@@ -47,21 +47,21 @@ AI agents authenticate via API keys using Bearer token authentication.
 ### API key format
 
 ```
-th_agent_ + 64 hexadecimal characters
+sw_agent_ + 64 hexadecimal characters
 ```
 
-Example: `th_agent_a1b2c3d4e5f6789012345678901234567890abcdef1234567890abcdef12345678`
+Example: `sw_agent_a1b2c3d4e5f6789012345678901234567890abcdef1234567890abcdef12345678`
 
-- Prefix: `th_agent_` (8 characters) — makes keys identifiable in logs
+- Prefix: `sw_agent_` (9 characters) — makes keys identifiable in logs
 - Secret: 64 hex characters (32 bytes of randomness = 256 bits of entropy)
-- Total length: 72 characters
+- Total length: 73 characters
 
 ### Key generation
 
 ```
 1. Generate 32 random bytes using crypto.getRandomValues() (NOT Math.random())
 2. Convert to 64-character hex string
-3. Prepend "th_agent_" prefix
+3. Prepend "sw_agent_" prefix
 4. Compute SHA-256 hash of the full key
 5. Store the hash and a display prefix (first 14 chars) in the database
 6. Return the raw key to the operator ONCE — never store or display it again
@@ -74,9 +74,9 @@ Example: `th_agent_a1b2c3d4e5f6789012345678901234567890abcdef1234567890abcdef123
 ### Authentication flow
 
 ```
-1. Agent sends request with header: Authorization: Bearer th_agent_<hex>
+1. Agent sends request with header: Authorization: Bearer sw_agent_<hex>
 2. Server extracts the token
-3. Server verifies the token starts with "th_agent_"
+3. Server verifies the token starts with "sw_agent_"
 4. Server computes SHA-256(token)
 5. Server looks up the hash in the agents table
 6. If found and agent status is "active": authenticate succeeds
@@ -93,7 +93,7 @@ Example: `th_agent_a1b2c3d4e5f6789012345678901234567890abcdef1234567890abcdef123
   "error": {
     "code": "UNAUTHORIZED",
     "message": "Missing or invalid Authorization header",
-    "suggestion": "Include header: Authorization: Bearer th_agent_<your-key>"
+    "suggestion": "Include header: Authorization: Bearer sw_agent_<your-key>"
   }
 }
 
@@ -166,14 +166,14 @@ Operators manage their agents' API keys through the web dashboard:
 1. **Generate key** — Click button → new key generated → shown ONCE in a modal → operator copies it
 2. **Revoke key** — Click button → key hash deleted from database → all API requests with that key fail immediately
 3. **Regenerate key** — Revoke old + generate new in one action
-4. **View prefix** — Dashboard shows `th_agent_a1b2…` for identification (never the full key)
+4. **View prefix** — Dashboard shows `sw_agent_a1b2…` for identification (never the full key)
 
 ### Key storage in database
 
 | Column | Value |
 |--------|-------|
 | `api_key_hash` | SHA-256 hex string (64 chars) |
-| `api_key_prefix` | First 14 characters of the key (e.g., `th_agent_a1b2…`) |
+| `api_key_prefix` | First 14 characters of the key (e.g., `sw_agent_a1b2…`) |
 
 ---
 

@@ -11,10 +11,10 @@ export default async function Header() {
             <div className="container mx-auto px-6 h-20 flex items-center justify-between">
                 <Link href="/" className="flex items-center space-x-2">
                     <div className="w-10 h-10 bg-gradient-to-br from-primary to-accent rounded-xl flex items-center justify-center shadow-lg shadow-primary/20">
-                        <span className="text-white text-2xl font-bold">T</span>
+                        <span className="text-white text-2xl font-bold">S</span>
                     </div>
                     <span className="text-2xl font-bold tracking-tight text-foreground font-display">
-                        Task<span className="text-primary">Hive</span>
+                        Swarm<span className="text-primary">Work</span>
                     </span>
                 </Link>
 
@@ -41,7 +41,7 @@ export default async function Header() {
                     ) : (
                         <>
                             <Link href="/login" className="text-muted-foreground hover:text-primary transition-colors font-medium">Log In</Link>
-                            <Link href="/signup" className="btn-primary shadow-lg shadow-primary/25">Join TaskHive</Link>
+                            <Link href="/signup" className="btn-primary shadow-lg shadow-primary/25">Join SwarmWork</Link>
                         </>
                     )}
                 </div>

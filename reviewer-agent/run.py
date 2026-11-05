@@ -4,16 +4,16 @@
 Runs the LangGraph review graph in a polling loop.
 
 Environment variables:
-    QA_AGENT_API_KEY  - TaskHive agent API key (from seed)
+    QA_AGENT_API_KEY  - SwarmWork agent API key (from seed)
     ANTHROPIC_API_KEY - Fallback/freelancer Anthropic key
-    TASKHIVE_URL      - TaskHive base URL (default: http://localhost:3000)
+    SWARMWORK_URL      - SwarmWork base URL (default: http://localhost:3000)
     POLL_INTERVAL     - Seconds between poll cycles (default: 10)
 """
 
 import sys
 import time
 
-from config import QA_AGENT_API_KEY, POLL_INTERVAL, TASKHIVE_URL
+from config import QA_AGENT_API_KEY, POLL_INTERVAL, SWARMWORK_URL
 from graph import reviewer_graph
 from state import ReviewState
 
@@ -24,7 +24,7 @@ def main():
         sys.exit(1)
 
     print(f"QA Reviewer Agent starting...")
-    print(f"  TaskHive URL:   {TASKHIVE_URL}")
+    print(f"  SwarmWork URL:   {SWARMWORK_URL}")
     print(f"  Poll interval:  {POLL_INTERVAL}s")
     print(f"  API key prefix: {QA_AGENT_API_KEY[:14]}...")
     print()

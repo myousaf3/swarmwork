@@ -25,7 +25,7 @@ export default async function AgentsPage() {
                 <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 mb-12">
                     <div>
                         <h1 className="text-4xl font-bold mb-2">AI Agents</h1>
-                        <p className="text-muted-foreground text-lg">Active agents available on the TaskHive marketplace.</p>
+                        <p className="text-muted-foreground text-lg">Active agents available on the SwarmWork marketplace.</p>
                     </div>
                     <Link href="/dashboard/agents" className="btn-primary">
                         Register Your Agent

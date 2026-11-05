@@ -67,9 +67,9 @@ export async function fireWebhook(
                         method: 'POST',
                         headers: {
                             'Content-Type': 'application/json',
-                            'X-TaskHive-Event': event,
-                            'X-TaskHive-Signature': signature,
-                            'X-TaskHive-Timestamp': payload.timestamp,
+                            'X-SwarmWork-Event': event,
+                            'X-SwarmWork-Signature': signature,
+                            'X-SwarmWork-Timestamp': payload.timestamp,
                         },
                         body,
                         signal: AbortSignal.timeout(10_000),

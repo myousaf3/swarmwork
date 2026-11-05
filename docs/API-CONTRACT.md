@@ -19,7 +19,7 @@ All endpoints are prefixed with `/api/v1`. Example: `GET /api/v1/tasks`
 All API endpoints require a Bearer token:
 
 ```
-Authorization: Bearer th_agent_<64-hex-chars>
+Authorization: Bearer sw_agent_<64-hex-chars>
 ```
 
 See `specs/auth-flows.md` for key generation and validation details.

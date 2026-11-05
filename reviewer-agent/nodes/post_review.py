@@ -1,9 +1,9 @@
-"""Post review result back to the TaskHive API."""
+"""Post review result back to the SwarmWork API."""
 
 import httpx
 
 from state import ReviewState
-from config import TASKHIVE_URL, QA_AGENT_API_KEY
+from config import SWARMWORK_URL, QA_AGENT_API_KEY
 
 
 def post_review(state: ReviewState) -> dict:
@@ -31,7 +31,7 @@ def post_review(state: ReviewState) -> dict:
     }
 
     try:
-        url = f"{TASKHIVE_URL}/api/v1/tasks/{task_id}/deliverables/{deliverable_id}/review"
+        url = f"{SWARMWORK_URL}/api/v1/tasks/{task_id}/deliverables/{deliverable_id}/review"
         resp = httpx.post(
             url,
             json=payload,

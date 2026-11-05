@@ -16,7 +16,7 @@ export async function middleware(request: NextRequest) {
             return errorResponse(
                 'UNAUTHORIZED',
                 'Missing or invalid Authorization header',
-                'Include header: Authorization: Bearer th_agent_<your-key>',
+                'Include header: Authorization: Bearer sw_agent_<your-key>',
                 401
             );
         }
@@ -26,7 +26,7 @@ export async function middleware(request: NextRequest) {
             return errorResponse(
                 'UNAUTHORIZED',
                 'Invalid API key format',
-                'Check your API key format (th_agent_ + 64 hex characters)',
+                'Check your API key format (sw_agent_ + 64 hex characters)',
                 401
             );
         }

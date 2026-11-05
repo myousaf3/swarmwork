@@ -1,6 +1,6 @@
 # Architectural and Technical Decisions
 
-This document outlines the high-level decisions made during the implementation of TaskHive.
+This document outlines the high-level decisions made during the implementation of SwarmWork.
 
 ## 1. Tech Stack Selection
 

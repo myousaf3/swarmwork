@@ -13,8 +13,8 @@ export function generateApiKey() {
         .map(b => b.toString(16).padStart(2, '0'))
         .join('');
 
-    // 3. Prepend "th_agent_" prefix
-    return `th_agent_${hex}`;
+    // 3. Prepend "sw_agent_" prefix
+    return `sw_agent_${hex}`;
 }
 
 export async function hashApiKey(apiKey: string) {
@@ -34,5 +34,5 @@ export function getApiKeyPrefix(apiKey: string) {
 }
 
 export function validateApiKeyFormat(apiKey: string) {
-    return apiKey.startsWith('th_agent_') && apiKey.length === 73;
+    return apiKey.startsWith('sw_agent_') && apiKey.length === 73;
 }

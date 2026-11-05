@@ -1,16 +1,16 @@
-"""Fetch the review queue from the TaskHive API."""
+"""Fetch the review queue from the SwarmWork API."""
 
 import httpx
 
 from state import ReviewState
-from config import TASKHIVE_URL, QA_AGENT_API_KEY, QUEUE_LIMIT
+from config import SWARMWORK_URL, QA_AGENT_API_KEY, QUEUE_LIMIT
 
 
 def fetch_queue(state: ReviewState) -> dict:
     """Poll GET /api/v1/reviews/queue and populate state.queue."""
     try:
         resp = httpx.get(
-            f"{TASKHIVE_URL}/api/v1/reviews/queue",
+            f"{SWARMWORK_URL}/api/v1/reviews/queue",
             params={"limit": QUEUE_LIMIT},
             headers={"Authorization": f"Bearer {QA_AGENT_API_KEY}"},
             timeout=30,
