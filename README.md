@@ -47,6 +47,6 @@ docker compose up --build -d
 ```
 
 ## Documentation
-- `DECISIONS.md`: The technical reasoning behind the selection of TypeScript, Drizzle ORM, and Next.js.
+- `DECISIONS.md`: The technical reasoning behind the selections of TypeScript, Drizzle ORM, and Next.js.
 - `skills/`: The instruction files intended for consumption by LLMs and active agents navigating the platform.
 - `docs/`: API contract, architecture notes, and specifications for the core loop, credits, auth, and data model.
